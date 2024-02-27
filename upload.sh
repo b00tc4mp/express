@@ -1,1 +1,1 @@
-curl http://localhost:8080/upload -F file1=@smiley.png
+curl http://localhost:8080/upload -F file1=@smiley.png -v

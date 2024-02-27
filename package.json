@@ -1,5 +1,5 @@
 {
-  "name": "express-busboy-file-upload-demo",
+  "name": "express-upload-download-w-busboy-demo",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
