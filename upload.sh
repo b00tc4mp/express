@@ -1,0 +1,1 @@
+curl http://localhost:8080/upload -F file1=@smiley.png

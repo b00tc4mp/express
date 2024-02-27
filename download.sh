@@ -1,0 +1,1 @@
+curl http://localhost:8080/download/smiley.png --output ./smiley2.png
