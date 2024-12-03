@@ -1,6 +1,6 @@
-const fs = require('fs')
+import fs from 'fs'
 
-function loadFile(filename, callback) {
+export default function loadFile(filename, callback) {
     if (typeof filename !== 'string') throw new TypeError('filename is not a string')
     if (typeof callback !== 'function') throw new TypeError('callback is not a function')
 
@@ -12,5 +12,3 @@ function loadFile(filename, callback) {
         callback(error)
     }
 }
-
-module.exports = loadFile

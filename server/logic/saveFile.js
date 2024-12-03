@@ -1,7 +1,7 @@
-const fs = require('fs')
-const { Readable } = require('stream')
+import fs from 'fs'
+import { Readable } from 'stream'
 
-function saveFile(file, filename, callback) {
+export default function saveFile(file, filename, callback) {
     if (!(file instanceof Readable)) throw new TypeError('file is not a readable stream')
     if (typeof filename !== 'string') throw new TypeError('filename is not a string')
 
@@ -15,5 +15,3 @@ function saveFile(file, filename, callback) {
         callback(error)
     }
 }
-
-module.exports = saveFile

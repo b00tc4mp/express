@@ -1,13 +1,15 @@
-const express = require('express')
-const busboy = require('busboy')
+import 'dotenv/config'
+import express from 'express'
+import busboy from 'busboy'
+import logic from './logic/index.js'
 
-const logic = require('./logic')
+const { PORT } = process.env
 
-const app = express()
+const server = express()
 
-app.use(express.static('public'))
+server.use(express.static('public'))
 
-app.post('/upload', (req, res) => {
+server.post('/upload', (req, res) => {
     const bb = busboy({ headers: req.headers })
 
     bb.on('file', (name, file, info) =>
@@ -18,7 +20,7 @@ app.post('/upload', (req, res) => {
                 return
             }
 
-            res.send()
+            res.status(201).send('file uploaded')
         }))
 
     // bb.on('error', error => res.status(500).json({ error: 'SystemError', message: error.message }))
@@ -26,7 +28,7 @@ app.post('/upload', (req, res) => {
     req.pipe(bb)
 })
 
-app.get('/download/:file', (req, res) => {
+server.get('/download/:file', (req, res) => {
     logic.loadFile(req.params.file, (error, file) => {
         if (error) {
             res.status(500).json({ error: 'SystemError', message: error.message })
@@ -38,4 +40,4 @@ app.get('/download/:file', (req, res) => {
     })
 })
 
-app.listen(8080, () => console.log('upload server is up'))
+server.listen(PORT, () => console.log(`server listening on port ${PORT}`))
