@@ -1,12 +1,17 @@
 import 'dotenv/config'
-import express from 'express'
+import express, { json } from 'express'
 import busboy from 'busboy'
+import cors from 'cors'
+
 import logic from './logic/index.js'
 
 const { PORT } = process.env
 
 const server = express()
 
+const jsonBodyParser = json({ limit: '10mb' })
+
+server.use(cors())
 server.use(express.static('public'))
 
 server.post('/upload', (req, res) => {
@@ -38,6 +43,16 @@ server.get('/download/:file', (req, res) => {
 
         file.pipe(res)
     })
+})
+
+server.post('/albums', jsonBodyParser, (req, res) => {
+    try {
+        console.log(JSON.stringify(req.body))
+
+        res.send()
+    } catch (error) {
+        res.status(500).json({ error: error.constructor.name, message: error.message })
+    }
 })
 
 server.listen(PORT, () => console.log(`server listening on port ${PORT}`))
